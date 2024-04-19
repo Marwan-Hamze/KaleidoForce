@@ -20,6 +20,11 @@ VerboseStateFactory: false
 robots:
   ground:
     module: env/ground
+  # slope:
+  #   module: env/ground
+  #   init_pos:
+  #     translation: [0.45, 0.0, 0.0]
+  #     rotation: [0.0, -1.57, 0.0]
 # General constraints, always on
 constraints:
 - type: contact
@@ -32,25 +37,55 @@ collisions:
   useMinimal: true
 # Initial set of contacts
 contacts:
-- r2: ground
+- r1: rhp7
+  r2: ground
   r1Surface: LeftFoot
   r2Surface: AllGround
-- r2: ground
+  dof: [1,1,1,1,1,1]
+- r1: rhp7
+  r2: ground
   r1Surface: RightFoot
   r2Surface: AllGround
+  dof: [1,1,1,1,1,1]
+      #[1,1,1,1,1,1]
+      #[0,0,0,0,0,0]
 
 # Some options for a specific robot
-jvrc1:
+rhp7:
   posture:
     stiffness: 1
-    weight: 10
-  ff:
-    stiffness: 2
-    weight: 100
+    weight: 1
+  #ff:
+    #stiffness: 2
+    #weight: 100
+
+active_dof: ["Root", "L_CROTCH_Y", "L_CROTCH_R", "L_CROTCH_P", "L_KNEE_P", "L_ANKLE_R", "L_ANKLE_P", 
+                      "R_CROTCH_Y", "R_CROTCH_R", "R_CROTCH_P", "R_KNEE_P", "R_ANKLE_R", "R_ANKLE_P"]
+
 # Implement some additional text states
 states: {}
+
 # Transitions map
 transitions:
 - [KaleidoForce_Initial, OK, KaleidoForce_Initial, Strict]
+
 # Initial state
 init: KaleidoForce_Initial
+
+#Observer Pipelines
+# ObserverPipelines:
+#   name: "KaleidoForceObserverPipeline"
+#   gui: true
+#   observers:
+#     - type: Encoder
+#     - type: Attitude
+#       required: false
+#       config:
+#         KalmanFilter:
+#           gyr_cov: 0.000001
+#     - type: KinematicInertial
+#       config:
+#         anchorFrame:
+#           maxAnchorFrameDiscontinuity: 0.02
+#     - type: BodySensor
+#       update: false

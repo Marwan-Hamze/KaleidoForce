@@ -11,4 +11,7 @@ struct KaleidoForce_Initial : mc_control::fsm::State
   bool run(mc_control::fsm::Controller & ctl) override;
 
   void teardown(mc_control::fsm::Controller & ctl) override;
+
+  private:
+    bool start_ = false;
 };
