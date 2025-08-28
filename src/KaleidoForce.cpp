@@ -96,7 +96,7 @@ void KaleidoForce::reset(const mc_control::ControllerResetData & reset_data)
     gui()->addElement({"Controller"}, mc_rtc::gui::Button("MoveCoM", [this]() {
 
 
-      comTask_->com(comTask_->com() - Eigen::Vector3d{0, 0.07, 0});
+      comTask_->com(comTask_->com() - Eigen::Vector3d{0, 0.09, 0});
 
       mc_rtc::log::info("Moved the CoM above the Right Foot\n");
 
